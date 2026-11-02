@@ -43,3 +43,83 @@ Academic institutions, startups, and developing regions have big problems in acc
 MENTAL HEALTH PREDICTION saw these problems. Created an AI platform made to help reduce the barrier to entry for mental health assessment by automatically analyzing behavioral and physiological features and classifying them into 4 categories. It uses Deep Learning (1D Convolutional Neural Network) to determine the mental health status, trained from scratch without pretrained models. This automatic process helps with classification and mental health status detection efficiently. It is a tool that gives researchers, developers, and healthcare professionals confidence when working with mental health assessment, allowing them to act quickly and implement mental health-aware systems.
 
 
+
+5. REQUIREMENTS
+
+A. Functional Requirements:
+Input feature data in format such as CSV files or structured arrays
+The system must Preprocess features, which includes handling missing values with median imputation and normalizing feature scales with standardization
+The system must predict mental health status by assigning each data point to one of 4 categories: Healthy, Mild_Stress, Moderate_Stress, and Severe_Stress
+The system must generate a report that summarizes the predicted mental health status, confidence scores, and probabilities for all classes
+The system must support batch processing allowing multiple data points to be processed at once
+The system must distinguish between different mental health status categories and display clear status indicators for each
+
+B. Non-Functional Requirements:
+The system must be able to handle multiple data points efficiently demonstrating effective batch processing capability
+The system must maintain performance even when feature scales vary or data distributions change
+The system must be ready for expansion to additional mental health status types and datasets
+The system must operate offline after the model has been trained with no need for an internet connection
+The system must provide user-interfaces for non-technical staff including both command-line and programmatic API options
+The system must generate summary reports and visualizations such as confusion matrices and classification reports for researchers
+The system must be portable and deployable on consumer hardware without needing specialized GPU for inference
+The system must provide reliability assessments that are based on confidence scores
+
+6. CONSTRAINTS
+
+A. Scope Constraints:
+MENTAL HEALTH PREDICTION is limited to the analysis of structured feature data (tabular data only)
+MENTAL HEALTH PREDICTION can classify 4 specific mental health status conditions found in the mental_health_multimodal dataset
+MENTAL HEALTH PREDICTION cannot detect mental health status from unstructured text, video, audio, or other modalities directly
+MENTAL HEALTH PREDICTION cannot detect multiple mental health conditions at once in a single data point; MENTAL HEALTH PREDICTION focuses on a single primary status
+
+B. Transparency Constraints:
+MENTAL HEALTH PREDICTION will ensure transparency in reporting mental health status detection, classification and confidence assessment
+The transparency in how confidence levels are determined is non-negotiable for MENTAL HEALTH PREDICTION
+All outputs from MENTAL HEALTH PREDICTION must include a disclaimer that MENTAL HEALTH PREDICTION is a decision support tool, not a replacement for professional healthcare judgment in critical applications
+
+C. Operational Constraints:
+MENTAL HEALTH PREDICTION is being tested on computers with standard computational resources, which may affect MENTAL HEALTH PREDICTION performance and accuracy
+MENTAL HEALTH PREDICTION does not account for factors such as cultural differences in mental health expression, context, or environmental factors
+MENTAL HEALTH PREDICTION requires properly collected and validated feature data for optimal performance
+MENTAL HEALTH PREDICTION does not predict mental health severity or temporal dynamics
+
+D. Geographic Constraints:
+MENTAL HEALTH PREDICTION is based on the mental_health_multimodal dataset which may not account for region-specific mental health expression variations or cultural differences
+Regional mental health databases are not yet integrated into MENTAL HEALTH PREDICTION
+
+7. RISKS
+
+Risk: Misclassification due to poor-quality features or ambiguous patterns
+Mitigation: Deal with data imbalance by using balanced class weighting calculated from training data labels. The mental_health_multimodal dataset shows severe imbalance for example Healthy has 1,629 samples (40.7%) while Severe_Stress has only 128 samples (3.2%). Balanced class weighting ensures that minority classes receive attention during training.
+Mitigation: Apply Preprocessing techniques such as median imputation and standardization to handle missing values and normalize feature scales.
+Mitigation: Implement a warning system that operates when confidence is low.
+Mitigation: Suggests the system should provide confidence scores and reliability indicators to help users assess prediction certainty.
+
+Risk: End User Over-reliance on AI
+Mitigation: Build a reporting system that shows confidence scores for each class so users can see the probability distribution.
+Mitigation: Mandate mandatory disclaimer on every report stating the AI system is a decision support tool and does not replace professional healthcare judgment in critical applications.
+Mitigation: Offer the probabilities for all classes so users can look at other possible mental health statuses when the main prediction is not very confident.
+Mitigation: Categorize predictions based on confidence with appropriate recommendations.
+
+Risk: Limited User Adoption Among Researchers and Developers
+Mitigation: Explain how the system works and give clear "how to use" instructions in documentation.
+Mitigation: Offer interface choices, like command line and programmatic API so people with different technical skills can use the system.
+Mitigation: Make sure the system can run offline so it helps researchers in areas that lack internet.
+Mitigation: Provide comprehensive documentation and training materials.
+
+Risk: Technical Failure or Deployment Issues
+Mitigation: Perform model backups and version control for all experiments.
+Mitigation: Supply a lightweight model that can run on consumer hardware at the edge.
+Mitigation: Add error handling and validation in the codebase to avoid crashes.
+Mitigation: Maintain compatibility with scikit-learn versions.
+
+Risk: Environmental Factors Not Accounted For
+Mitigation: State that the system relies only on the provided features and does not include context, cultural factors, or environmental conditions.
+Mitigation: Suggest that users verify findings in critical applications, especially for sensitive use cases.
+Mitigation: Plan future work to add multi-modal analysis (clinical data, physiological signals) for more complete mental health understanding.
+
+Risk: Dataset Bias and Limited Generalization
+Mitigation: Note that the mental_health_multimodal dataset appears to be synthetic; the AI may not work well on real-world data with different feature distributions.
+Mitigation: Document that the labels were likely derived from score features (data leakage) and the dataset is not suitable for real-world use.
+Mitigation: Document that behavioral features contain no predictive signal.
+Mitigation: Recommend obtaining a real-world validated dataset for production use.
