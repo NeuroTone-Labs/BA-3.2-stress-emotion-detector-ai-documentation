@@ -123,3 +123,78 @@ Mitigation: Note that the mental_health_multimodal dataset appears to be synthet
 Mitigation: Document that the labels were likely derived from score features (data leakage) and the dataset is not suitable for real-world use.
 Mitigation: Document that behavioral features contain no predictive signal.
 Mitigation: Recommend obtaining a real-world validated dataset for production use.
+
+8. TOOLS AND TECHNIQUES
+
+A. Python
+Python is the development language because of a wide range of AI/ML libraries, strong community support, and an extensive machine learning ecosystem.
+
+B. Machine Learning Techniques
+Logistic Regression – Logistic Regression is used for mental health status prediction from structured features
+Pipeline-based Preprocessing – Pipeline-based preprocessing ensures consistent preprocessing (imputation, scaling) across train and test data
+Stratified Splitting – Stratified splitting preserves class distribution across train and test sets
+Class Weighting – Class Weighting with balanced strategy is used to handle dataset imbalance
+Feature Scaling – Feature Scaling using StandardScaler normalizes feature scales for consistent model performance
+Label Leakage Investigation – Label Leakage Investigation analyzes the relationship between score features and target labels to assess data integrity
+
+C. Python Libraries
+scikit-learn – scikit-learn is used for preprocessing, model training, evaluation metrics, and dataset splitting
+pandas – pandas is used for data manipulation and saving results
+numpy – numpy is used for handling numerical operations and array manipulations
+joblib – joblib is used for saving and loading trained models
+pathlib – pathlib is used for file system operations and path management
+json – json is used for saving/loading metadata and evaluation results
+datetime – datetime is used for timestamping experiments and reports
+
+D. Development and Collaboration Tools and Techniques
+Git / GitHub – Git and GitHub provide version control, code collaboration and project management
+Visual Studio Code – Visual Studio Code is used for developing the MENTAL HEALTH PREDICTION codebase
+
+E. Support Tools
+Grammarly – Grammarly is used for formatting documentation
+MS Word – MS Word is used for generating documentation for MENTAL HEALTH PREDICTION project
+Notepad – Notepad is used for generating documentation on how to use MENTAL HEALTH PREDICTION
+Canva/Figma – Canva/Figma is used for creating poster and presentation design
+MS PowerPoint – MS PowerPoint is used for project presentations
+
+F. Model Architecture Details
+Input: 21 features (3 scores + 18 behavioral/physiological)
+Preprocessing: SimpleImputer (median strategy) → StandardScaler
+Model: 1D Convolutional Neural Network (CNN)
+Architecture: Conv1D layers with ReLU activation, BatchNormalization, MaxPooling1D, Dropout
+Optimizer: Adam (learning_rate=0.001)
+Loss: Sparse categorical cross-entropy
+Metrics: Accuracy, Macro F1, Weighted F1, Balanced Accuracy
+Split: Stratified 80/20 train/test split (random_state=42)
+Script: mental_health_cnn.py (supports --train and --predict modes)
+
+G. Model Training and Evaluation
+Training Command: Run python predict_mental_health/mental_health_cnn.py --train
+Prediction Command: Run python predict_mental_health/mental_health_cnn.py --predict --row 5
+Feature Set: 21 combined features (3 scores + 18 behavioral/physiological)
+Model: 1D Convolutional Neural Network (CNN)
+Results: Model achieves reasonable accuracy using all 21 features
+Investigation: Strong evidence that labels were derived from score features (data leakage) from previous Logistic Regression experiments
+Recommendation: Dataset is synthetic and not suitable for real-world mental health prediction
+
+H. Prediction System Enhancements
+Label Leakage Warning: The investigation found strong evidence that the Mental_Health_Status labels were generated using threshold rules on the score features.
+Behavioral Feature Analysis: The 18 behavioral/physiological features contain no predictive signal (37.75% CV accuracy, slightly better than random guessing).
+Class Imbalance: Severe_Stress is severely underrepresented (3.2% of dataset), which is a realistic clinical distribution but poses ML challenges.
+Dataset Origin: The dataset appears to be synthetic with independent generation of behavioral features and deterministic label construction.
+
+I. Dataset Specifications
+Source: mental_health_multimodal.csv (synthetic dataset)
+Total Samples: 4,000 samples
+Features: 21 features (3 scores + 18 behavioral/physiological)
+Classes: 4 mental health status categories: Healthy, Mild_Stress, Moderate_Stress, Severe_Stress
+Preprocessing: Median imputation and standardization
+Dataset Imbalance: Severe variation in class sizes (Healthy: 1,629 samples (40.7%) vs Severe_Stress: 128 samples (3.2%))
+Imbalance Mitigation: Balanced class weighting applied during training to improve minority class performance
+
+9. PROBLEM DEFINITION
+Predicting mental health status from behavioral and physiological features is very important for healthcare analytics and mental health monitoring. Predicting mental health status requires a lot of time and computational resources. In many regions and organizations, there are not accessible mental health assessment systems or experts to carry out this task effectively. In research institutions and small startups the problem is even more pronounced as available systems are often proprietary, expensive, or require specialized hardware. This leads to barriers in implementing mental health prediction in healthcare systems, delays in development, and limited functionality for systems that depend on mental health context. Assessing mental health status by hand takes time, can lead to errors, and slows down implementation for applications that require efficient mental health assessment such as healthcare decision support, mental health monitoring, and user experience research.
+
+This issue is very important in healthcare analytics because accurate mental health prediction can greatly improve healthcare decision support, enable better mental health monitoring, and enhance user experience design. Detecting mental health patterns early and accurately can greatly improve system responsiveness. Create more adaptive healthcare systems for users who depend on technology for health monitoring and support. Small research groups and startups, who constitute the majority of innovators in many regions, cannot afford or access specialized mental health assessment systems, making timely implementation nearly impossible.
+
+The proposed solution uses the mental_health_multimodal dataset and machine learning methods, Logistic Regression to automatically analyze and classify feature data. This helps solve the problem of mental health status prediction. The solution will help lower the barrier to entry for mental health assessment technology, improve efficiency, and make implementation faster. The solution is designed to support researchers, developers, and healthcare professionals by helping them implement quicker and dependable mental health assessment in their systems. The solution does not replace professional healthcare judgment but acts as a helpful tool so they can make better decisions with more confidence. The solution is relevant to the theme because it addresses a fundamental challenge in healthcare analytics—mental health status prediction—using modern AI technologies. The solution aligns with global initiatives to leverage AI for innovation in healthcare analytics. The solution is beneficial because it democratizes access to mental health assessment technology, reduces dependency on proprietary systems, and enables efficient mental health status detection that can improve system responsiveness and user experience. The problem is clearly articulated: mental health assessment is slow, subjective, and inaccessible to many researchers and developers. The solution is achievable using proven machine learning techniques and available datasets. The benefits are tangible: lower computational costs, faster implementation, improved system adaptability, and enhanced user experience.
