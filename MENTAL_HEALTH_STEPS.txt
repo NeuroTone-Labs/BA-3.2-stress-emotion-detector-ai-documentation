@@ -1,0 +1,409 @@
+MENTAL HEALTH PREDICTION SOLUTION STEPS
+
+
+Start
+
+1. Download the mental_health_multimodal dataset
+
+Download the mental_health_multimodal.csv dataset from the source
+
+Ensure the dataset file is in the dataset/ folder in the project directory
+
+Verify the dataset contains 4,000 rows with 22 features (3 scores + 18 behavioral + 1 target)
+
+Store this file in the dataset/ folder alongside the project scripts
+
+Make sure the columns are properly named and formatted
+
+
+2. Set up the development environment
+
+Create an environment (venv)
+
+Activate the environment
+
+Install required dependencies: pandas, numpy, scikit-learn, joblib tensorflow
+
+
+3. Import necessary libraries
+
+Import pathlib for file system operations
+
+Import json for saving and loading metadata
+
+Import datetime for timestamping experiments
+
+Import re and html for cleaning column names
+
+Import joblib for saving and loading preprocessing pipelines
+
+Import numpy for numerical operations
+
+Import pandas for data manipulation
+
+Import tensorflow for deep learning
+
+Import matplotlib and matplotlib.pyplot for visualization
+
+Import sklearn modules: impute, metrics, model_selection, preprocessing
+
+Import argparse for command-line argument parsing
+
+
+4. Set global constants
+
+Set SCRIPT_DIR to the scripts directory
+
+Set CSV_PATH to the dataset file location
+
+Set OUTPUT_DIR for experiment results (mental_health_21_feature_cnn_experiment)
+
+Set MODEL_PATH to best_model.keras
+
+Set PREPROCESSING_PATH to preprocessing.joblib
+
+Set TARGET_COLUMN = "Mental_Health_Status"
+
+Set RANDOM_STATE = 42 for reproducibility
+
+Set TEST_SIZE = 0.20 for 80/20 train/test split
+
+Set VALIDATION_SIZE = 0.20 for 20% validation from training data
+
+Set MAX_EPOCHS = 50 for training
+
+Set BATCH_SIZE = 32 for training
+
+Set EARLY_STOPPING_PATIENCE = 10
+
+
+5. Define feature columns
+
+Define SCORE_FEATURES list: Depression_Score, Anxiety_Score, Stress_Score
+
+Define BEHAVIORAL_FEATURES list: 18 behavioral and physiological features
+
+Define FEATURE_COLUMNS as SCORE_FEATURES + BEHAVIORAL_FEATURES (21 features total)
+
+Define EXPECTED_CLASSES list: Healthy, Mild_Stress, Moderate_Stress, Severe_Stress
+
+
+6. Create data cleaning function
+
+Create clean_column_name() function to remove HTML entities and asterisks
+
+Use html.unescape() to decode HTML entities
+
+Use regex to remove leading/trailing asterisks
+
+Strip whitespace from column names
+
+
+7. Create CNN model function
+
+Create build_cnn_model() function to define 1D CNN architecture
+
+Add Conv1D layers with ReLU activation for feature extraction
+
+Add BatchNormalization layers after each Conv1D for training stability
+
+Add MaxPooling1D for dimensionality reduction
+
+Add Dropout layers for regularization (0.3-0.5 dropout rates)
+
+Add layers for classification with BatchNormalization
+
+Compile model with Adam optimizer (learning_rate=0.001) and sparse categorical cross-entropy loss
+
+
+8. Create data loading function
+
+Create load_and_validate_data() function
+
+Check if CSV file exists
+
+Load CSV using pandas
+
+Clean column names using clean_column_name()
+
+Validate target column exists
+
+Validate all required feature columns exist
+
+Drop rows with missing target values
+
+Clean target labels (strip whitespace, convert to string)
+
+Return cleaned data
+
+
+9. Create train_mode function
+
+Create train_mode() function for training the CNN
+
+Print experiment header with timestamp and paths
+
+Create output directory if it doesn't exist
+
+Load and validate data using load_and_validate_data()
+
+Extract features and target from data
+
+Preserve original CSV row numbers using data.index.values
+
+Encode target labels using LabelEncoder
+
+Create train/validation/test splits using stratified sampling (80/20 train/test then 80/20 train/validation)
+
+Split original row indices along with data to track which rows belong to each split
+
+Preprocess data: imputer and scaler on training data only
+
+Reshape data for CNN input (samples, timesteps, features)
+
+Build CNN model using build_cnn_model()
+
+Define callbacks: ModelCheckpoint to save model EarlyStopping with patience=10
+
+Train model with callbacks for up to 50 epochs with batch size 32
+
+Load best model from checkpoint
+
+Evaluate model on test set
+
+Generate classification report and confusion matrix
+
+Save preprocessing artifacts (imputer, scaler, label_encoder, split indices)
+
+Automatically save split index files: train_indices.csv, val_indices.csv, test_indices.csv (replaces generate_split_indices.py)
+
+Save training history classification reports, confusion matrix
+
+Automatically save test predictions with CSV row numbers and correctness indicators (replaces export_test_data.py)
+
+Save metrics and metadata including split index file paths
+
+Generate training plots (accuracy and loss curves) using matplotlib
+
+Print completion message
+
+
+10. Create prediction functions
+
+Create load_model_and_preprocessing() function
+
+Load trained CNN model from best_model.keras
+
+Load preprocessing artifacts from preprocessing.joblib
+
+Return model and preprocessing dictionary
+
+Create load_csv_row() function
+
+Load CSV file
+
+column names
+
+Validate row number (1-based)
+
+Extract features in correct order
+
+Get actual label if available
+
+Return features dictionary, actual label and dataframe
+
+Create predict_status() function
+
+Create feature vector from features dictionary
+
+Apply preprocessing (imputation, scaling)
+
+Reshape for CNN input
+
+Make prediction using loaded model
+
+Get predicted class and probabilities
+
+Return prediction result dictionary
+
+Create display_results() function
+
+Print prediction header
+
+Display predicted category
+
+Display class probabilities for all classes
+
+Display label if available
+
+Display whether prediction matches actual label
+
+
+11. Create predict_mode function
+
+Create predict_mode() function with csv_path and row_number parameters
+
+Load model and preprocessing
+
+Print model and preprocessing information
+
+Load specified row from CSV
+
+Make prediction using predict_status()
+
+Display results using display_results()
+
+Verify probabilities sum to ~1.0
+
+Return success code
+
+
+12. Create function
+
+Create main() function with argparse
+
+Add --train argument for training mode
+
+Add --predict argument for prediction mode
+
+Add --csv argument for custom CSV path
+
+Add --row argument for row number selection
+
+Validate arguments (cannot specify both --train and --predict)
+
+If --train: call train_mode()
+
+If --predict: determine CSV path and row number call predict_mode()
+
+Handle errors with appropriate error messages
+
+
+Return exit code
+
+13. Execute function
+
+Add if __name__ == "___" guard
+
+Call main() function when script is run directly
+
+
+14. Run training
+
+Execute mental_health_cnn.py with --train flag
+
+Verify output directory is created
+
+Verify model is saved as best_model.keras
+
+Verify preprocessing is saved as preprocessing.joblib
+
+Verify all evaluation outputs are saved (train_indices.csv, val_indices.csv, test_indices.csv test_predictions.csv)
+
+Review training history plots
+
+Read classification report and confusion matrix
+
+
+15. Run prediction tests
+
+Execute mental_health_cnn.py with --predict --row 5
+
+Verify model loads successfully
+
+Verify prediction is generated
+
+Verify class probabilities are displayed
+
+Verify label comparison is shown
+
+Test with custom CSV path using --csv argument
+
+
+16. Document findings
+
+Create documentation files following NUEROTONE_LABS pattern
+
+Include relevance to theme, business objectives success criteria
+
+Include business background, requirements, constraints, risks
+
+Include tools and techniques problem definition
+
+Include project history and experiments
+
+Include best model information
+
+Include validation split details and callback mechanisms
+
+Include BatchNormalization and early stopping information
+
+Add disclaimers about dataset being synthetic and not suitable for real-world use
+
+
+17. Create aspects file
+
+Include machine learning approach description
+
+Include data description and preprocessing
+
+Include model architecture details
+
+Include solution techniques
+
+Include machine learning methodology
+
+Include features
+
+Include experimental findings and analysis
+
+Include ethical considerations
+
+Include validation split details and callback mechanisms
+
+Include BatchNormalization and early stopping information
+
+Include matplotlib visualization details
+
+
+18. Create steps file
+
+Document all steps from download to documentation
+
+Include function creation details
+
+Include experiment execution steps
+
+Include analysis and documentation steps
+
+
+19. Archive experiments
+
+Create ARCHIVED_EXPERIMENTS folder
+
+Move Logistic Regression models and comparison experiments to archive
+
+Move investigation report to archive
+
+Delete helper scripts (check_row_split.py, export_test_data.py, generate_split_indices.py) as their functionality is now integrated into mental_health_cnn.py
+
+Keep original scripts as backups until new script is verified
+
+Delete original scripts after verification
+
+
+20. Review and validate
+
+Review all documentation files, for consistency
+
+Verify all documentation follows NUEROTONE_LABS pattern
+
+Verify disclaimers are prominently displayed
+
+Verify ethical considerations are addressed
+
+Verify dataset limitations are clearly stated
+
+Verify final project structure contains only Model C files (mental_health_cnn.py)
+
+Verify helper scripts (check_row_split.py, export_test_data.py, generate_split_indices.py) have been deleted or archived
