@@ -1,0 +1,304 @@
+1. MENTAL HEALTH PREDICTION: RELEVANCE TO THE THEME
+Health prediction is a very important task in healthcare analytics and affective computing. Predicting health status from behavioural and physiological data is important for early support, personalised care and better health outcomes. This process requires expert knowledge, verified datasets and sufficient computing resources to turn raw data into accurate predictions.
+Experts and healthcare workers usually assess health status through interviews, questionnaires or expensive systems. These traditional methods can take a lot of time, may be subjective and are not always accessible to groups, startups and people in developing areas.
+Our idea uses the mental_health_multimodal dataset, which contains scores (Depression_Score, Anxiety_Score and Stress_Score) and 18 behavioural and physiological features. These features capture signs from user interactions, facial expressions, voice and body signals. We use them to build a tool that helps researchers, developers and healthcare professionals classify mental health status.
+The tool uses a 1D Convolutional Neural Network (CNN) to analyse the features and predict a person's health status. It identifies four categories: Healthy, Mild_Stress, Moderate_Stress and Severe_Stress. The MENTAL HEALTH PREDICTION system aims to apply AI to healthcare analytics and mental health monitoring.
+This approach may reduce the computing resources needed for initial assessments and shorten the time required to identify patterns in data. It can help improve mental health monitoring systems, healthcare decision-support tools and user experience design.
+2. BUSINESS OBJECTIVES
+•	To make mental health prediction faster by using behavioural and physiological features.
+•	To improve prediction accuracy by using the mental_health_multimodal dataset, which contains four mental health status categories.
+•	To support health monitoring systems, healthcare decision-making and user experience design by identifying patterns in digital data.
+•	To make mental health assessment tools more accessible to researchers and developers without requiring specialised hardware or expensive software.
+•	To demonstrate how AI tools such as MENTAL HEALTH PREDICTION can support healthcare analytics and make experimental mental health classification more accessible.
+•	To encourage the use of AI-based assessment tools in schools, startups and developing communities, subject to appropriate validation and ethical safeguards.
+
+3. BUSINESS SUCCESS CRITERIA
+•	The system must classify data into the four mental health categories.
+•	The system must process test data and generate a confusion matrix and classification report efficiently.
+•	The system must analyse feature data and display the predicted mental health category with a confidence score.
+•	The system should attract researchers and developers to participate in testing and provide feedback.
+•	The system must provide information about each category, including typical feature patterns, possible uses and potential applications.
+
+ 4. BUSINESS BACKGROUND
+As people become more interested in health and well-being, understanding mental health through behavioural and physiological data has become increasingly valuable. However, many researchers and organisations do not have access to affordable mental health assessment tools. Some existing systems are expensive, require specialised hardware or use proprietary technology. These limitations, together with limited computing resources, make it difficult to apply mental health prediction in practical situations.
+At NEUROTONE LABS, we recognise these challenges in healthcare analytics and mental health monitoring. We therefore developed an AI-based tool that analyses structured behavioural and physiological features to classify mental health status. This approach aims to reduce some of the barriers to accessing assessment technology.
+By using machine learning, MENTAL HEALTH PREDICTION generates classification results and confidence scores to support researchers and developers in analysing data. The system is intended to support research and decision-making rather than replace professional mental health assessments or medical diagnoses.
+5. REQUIREMENTS
+Functional Requirements
+•	The system must accept feature data in formats such as CSV files or structured arrays.
+•	The system must clean and prepare the feature data by handling missing values, standardising features and checking the data before analysis.
+•	The system must classify each data point into one of the four mental health categories and provide a confidence score.
+•	The system must display predictions for each data point, including confidence levels and probabilities for all four classes.
+•	The system must generate reports from test data, including a confusion matrix and a classification report.
+•	The system must provide information about each mental health category, including typical feature patterns and possible applications.
+Non-Functional Requirements
+•	The system must process data points quickly and efficiently.
+•	The system must handle features with different scales and distributions through appropriate preprocessing.
+•	The system should be designed to support additional mental health categories and new datasets in future versions.
+•	The system must operate reliably during its intended operating hours.
+•	The system must provide a command-line interface and an API to support integration with other systems.
+•	The system must preserve and track original CSV row numbers to identify which dataset split each row belongs to.
+6. CONSTRAINTS
+•	he system predicts health status using structured feature data. It does not directly analyse raw text, video, audio or other unstructured data.
+•	The system currently supports only the four mental health categories included in the mental_health_multimodal dataset.
+•	The model has been designed and tested using data similar to the mental_health_multimodal dataset, which contains 21 input features and one target column.
+•	Testing and training require a computer with sufficient computing resources.
+•	The system depends on collected and validated feature data. Its performance may decrease when it receives data with different feature ranges or distributions.
+•	The system currently provides its interface and health information in English.
+
+
+
+
+
+
+7. RISKS
+Risk	Likelihood	Impact	Mitigation
+Misclassification of health status	Medium	High	• Preprocess and standardise features correctly.
+• Alert users when confidence is low.
+• Recommend professional review where appropriate.
+Over-reliance on AI	Medium	High	• Clearly state that the system supports decision-making and is not a diagnostic tool.
+• Display confidence scores and limitations.
+• Encourage professional verification for critical applications.
+Poor data quality	High	Medium	• Provide data quality guidelines.
+• Check data quality before predictions.
+• Encourage consistent data collection and validation.
+Dataset bias	Medium	Medium	• Evaluate performance across all four classes.
+• Consider class weighting or resampling during training.
+• Assess methods for improving performance on minority classes.
+Poor user adoption	Medium	High	• Conduct testing with researchers and developers.
+• Provide user documentation and training materials.
+• Collect feedback to improve usability.
+Technical failure	Medium	High	• Back up the model and use version control.
+• Maintain compatibility with the required software versions.
+• Monitor system performance and test updates.
+
+
+
+8. TOOLS AND TECHNIQUES
+A. Programming Language
+•	Python – chosen because it provides useful AI libraries, has a large developer community and is relatively easy to use and deploy.
+B. Machine Learning Techniques
+•	Supervised classification using a 1D Convolutional Neural Network (CNN) with TensorFlow/Keras.
+•	A deep learning architecture with convolutional and pooling layers for feature extraction.
+•	Batch Normalisation layers to improve training stability.
+•	Pipeline-based preprocessing using median imputation and standardisation.
+•	Stratified train/test splitting (80/20), with 20% of the training portion reserved for validation.
+•	Original CSV row number tracking to identify which split each data row belongs to.
+•	Dropout regularisation (0.3–0.5) to help reduce overfitting.
+•	Adam optimiser with a learning rate of 0.001.
+•	Early stopping with a patience of 10 epochs to help prevent overfitting.
+•	Model checkpointing to save the best model weights based on validation loss.
+•	Model evaluation using accuracy, macro F1-score, weighted F1-score and balanced accuracy.
+•	Confusion matrices and classification reports for performance analysis.
+•	Training history visualisation using Matplotlib to display accuracy and loss curves.
+•	Automatically generated split index files: train_indices.csv, val_indices.csv and test_indices.csv.
+C. Python Libraries Used
+•	pathlib – for file system operations and path management.
+•	json – for saving and loading model metadata and evaluation results.
+•	datetime – for recording experiment dates and times.
+•	joblib – for saving and loading preprocessing pipelines.
+•	NumPy – for numerical calculations and array operations.
+•	pandas – for data manipulation and saving results.
+•	TensorFlow – for deep learning and neural network operations.
+•	Keras – for building and training the CNN model.
+•	Matplotlib – for generating training history graphs.
+•	scikit-learn – for preprocessing, evaluation metrics and dataset splitting.
+D. Development and Collaboration Tools
+•	Git/GitHub – for version control, code collaboration, project management and task tracking.
+•	Visual Studio Code – the development environment used to write and manage the MENTAL HEALTH PREDICTION code.
+E. Support Tools
+•	Grammarly – for checking grammar and improving documentation.
+•	Microsoft Word – for preparing project documentation.
+•	Canva – for designing presentations and visual materials.
+9. PROBLEM DEFINITION
+Predicting mental health status from behavioural and physiological features is an important task, but it requires suitable data, time and computing resources. Some organisations and research groups do not have access to specialised assessment systems or sufficient professional support. Small startups and research centres may face additional difficulties because some available systems are expensive, proprietary or dependent on specialised hardware.
+These challenges can limit the use of automated health prediction in healthcare systems, mental health monitoring applications and user experience research. There is therefore a need for accessible tools that can analyse structured data and help identify patterns related to mental health status.
+The MENTAL HEALTH PREDICTION system addresses this problem by using the mental_health_multimodal dataset and artificial intelligence techniques to classify data into four mental health status categories. The system aims to help researchers and developers analyse data more efficiently and explore possible applications of AI in health monitoring.
+However, its predictions must be treated as experimental results. The system cannot independently diagnose mental health conditions, and professional assessment remains important when health concerns arise.
+10. PROJECT HISTORY AND EXPERIMENTS
+The MENTAL HEALTH PREDICTION project developed a 1D Convolutional Neural Network (CNN) for predicting mental health status.
+•	Model C Development: A 1D CNN architecture was designed to use all 21 input features, including three scores and 18 behavioural and physiological features, to predict four mental health status categories.
+•	Training: The CNN was trained using the mental_health_multimodal dataset, with median imputation and standardisation used to prepare the data.
+•	Evaluation: The model was evaluated using classification reports, confusion matrices and several performance metrics.
+•	Model C Architecture: The model uses convolutional layers, pooling layers, dropout regularisation and the Adam optimiser.
+•	Combined Script: A script named mental_health_cnn.py was developed with --train and --predict options to support model training and prediction.
+•	Row Tracking: Original CSV row numbers were tracked to identify which dataset split each row belonged to.
+•	Split Index Files: The system automatically generated train_indices.csv, val_indices.csv and test_indices.csv during training.
+•	Enhanced Predictions: The system generated test_predictions.csv, containing original CSV row numbers and information indicating whether each prediction was correct.
+Important project outputs:
+•	he 1D CNN was designed to learn from all 21 input features and predict the four mental health status categories.
+•	The trained model was saved as best_model.keras, and the preprocessing pipeline was saved as preprocessing.joblib.
+•	An experiment report was generated in mental_health_21_feature_cnn_experiment/.
+•	The mental_health_cnn.py script supports both training and prediction through helper functions.
+•	Earlier Logistic Regression experiments were stored in ARCHIVED_EXPERIMENTS/.
+11. BEST MODEL
+•	Model: 1D Convolutional Neural Network (CNN), Model C.
+•	Features: All 21 input features, comprising three scores and 18 behavioural and physiological features.
+•	Training: The model was trained using the mental_health_multimodal dataset with appropriate data preprocessing.
+•	Architecture: A deep learning CNN containing convolutional layers, pooling layers, dropout regularisation and dense layers.
+•	Optimiser: Adam optimiser.
+•	Preprocessing: Median imputation and standardisation, saved in preprocessing.joblib.
+•	Model File: best_model.keras.
+•	Combined Script: mental_health_cnn.py, containing --train and --predict options.
+•	Evaluation Report: mental_health_21_feature_cnn_experiment/experiment_report.md.
+•	Split Tracking: Original CSV row numbers were recorded in train_indices.csv, val_indices.csv and test_indices.csv.
+•	Enhanced Predictions: test_predictions.csv was generated with csv_row_number and correct columns.
+Dataset Details
+The dataset contains 4,000 samples distributed across four mental health status categories.
+Mental Health Status	Number of Samples	Percentage
+Healthy	1,629	40.7%
+Mild_Stress	1,237	30.9%
+Moderate_Stress	1,006	25.2%
+Severe_Stress	128	3.2%
+Total	4,000	100%
+
+12. THEORETICAL ASPECTS: MENTAL HEALTH PREDICTION
+A. Machine Learning Approach
+We used a deep learning approach for MENTAL HEALTH PREDICTION. Using TensorFlow/Keras and scikit-learn preprocessing tools, we developed a four-class classification task. The Mental_Health_Status column acts as the target label that the model learns to predict.
+Figure 1: Multi-class mental health status classification task
+Reference: Dataset loading in the train_mode function of mental_health_cnn.py (lines 188–234).
+The model was built using a 1D Convolutional Neural Network (CNN) with TensorFlow/Keras. Its architecture includes convolutional layers, pooling layers, dropout regularisation and the Adam optimiser.
+Figure 2: The model was built using a CNN
+Reference: build_cnn_model() function in mental_health_cnn.py (lines 137–185).
+The model uses the mental_health_multimodal dataset to learn relationships between the input features and their corresponding target labels.
+Figure 3: The model uses the mental_health_multimodal dataset
+Reference: Dataset loading in mental_health_cnn.py (train_mode function, lines 202–203).
+After training, the model predicts one of four classes for each data point: Healthy, Mild_Stress, Moderate_Stress or Severe_Stress.
+Figure 4: Outputs for the four mental health status categories
+Reference: Prediction output structure in the predict_status() function of mental_health_cnn.py (lines 589–630).
+This method was selected because CNNs can learn patterns from structured feature data. Dropout regularisation helps reduce overfitting by preventing the model from relying too heavily on particular neurons. However, dropout alone does not guarantee good performance across every category.
+To evaluate the model, the dataset was divided into training, validation and testing sets while preserving class proportions through stratified splitting.
+Reference: train_test_split with the stratify parameter in mental_health_cnn.py (train_mode function, lines 232–248).
+B. Data
+MENTAL HEALTH PREDICTION uses the mental_health_multimodal dataset for mental health status classification.
+The dataset contains 4,000 data points, 21 input features and one target column, Mental_Health_Status. The 21 input features consist of three score features (Depression_Score, Anxiety_Score and Stress_Score) and 18 behavioural and physiological features.
+The four target categories are Healthy, Mild_Stress, Moderate_Stress and Severe_Stress.
+Figure 5: The mental_health_multimodal dataset used for mental health status prediction
+Reference: Dataset structure in the load_and_validate_data() function (lines 107–134).
+For training and testing, 80% of the data was allocated to the training portion and 20% to the test portion. A further 20% of the training portion was reserved for validation. This results in approximately 64% for training, 16% for validation and 20% for testing overall.
+The original CSV row numbers were retained throughout the splitting process so that each row could be traced to its corresponding dataset split.
+Figure 6: Training, validation and test data splitting
+Reference: Train/validation/test splitting in mental_health_cnn.py (train_mode function, lines 232–252).
+Original CSV row numbers were obtained using data.index.values and tracked through the splitting process. These indices were saved in train_indices.csv, val_indices.csv and test_indices.csv to make the data easier to audit.
+Figure 7: Data preprocessing and row tracking
+Reference: Row index tracking in mental_health_cnn.py (train_mode function, lines 218 and 241–257).
+Missing values were handled through imputation, while standardisation was used to make feature scales more consistent. The preprocessing pipeline was fitted using training data only and then applied to validation and test data. This helps prevent data leakage.
+Reference: Preprocessing in mental_health_cnn.py (train_mode function, lines 259–276).
+The dataset has an imbalance in the number of samples in each class:
+•	Healthy: 40.7% of the data (1,629 samples). Mild_Stress: 30.9% of the data (1,237 samples).
+•	Moderate_Stress: 25.2% of the data (1,006 samples).
+•	Severe_Stress: 3.2% of the data (128 samples).
+Dropout was included to help reduce overfitting. However, additional methods such as class weighting or resampling may be necessary to improve performance on the minority class.
+Reference: Dropout layers in the build_cnn_model() function (lines 152, 163, 169 and 171).
+C. Model
+MENTAL HEALTH PREDICTION uses a 1D Convolutional Neural Network (CNN) implemented with TensorFlow/Keras. The model is trained from scratch rather than using a pretrained model.
+The architecture combines convolutional layers, pooling layers, dropout regularisation and dense layers to classify the input data.
+Architecture details:
+•	Input: 21 features, reshaped into the format required by a 1D CNN.
+•	Convolutional Layers: Multiple Conv1D layers with ReLU activation to learn patterns from the input features.
+•	Batch Normalisation: BatchNormalization layers to support more stable training.
+•	Pooling Layers: MaxPooling1D layers to reduce the size of intermediate feature representations.
+•	Dropout: Dropout layers with rates between 0.3 and 0.5 to help reduce overfitting.
+•	Dense Layers: Fully connected layers to combine learned features and perform classification.
+•	Output: A dense layer with four neurons, one for each mental health status category, using Softmax activation to produce class probabilities.
+•	Optimiser: Adam with a learning rate of 0.001.
+•	Loss Function: Categorical cross-entropy for multi-class classification.
+•	Callbacks: Early stopping with a patience of 10 epochs and model checkpointing to save the best model.
+Figure 8: Implementation of the 1D CNN architecture
+Reference: build_cnn_model() function in mental_health_cnn.py (lines 137–185).
+The preprocessing steps, including imputation and standardisation, were fitted on the training data and then applied consistently to the validation and test data to prevent data leakage.
+Reference: Preprocessing in mental_health_cnn.py (train_mode function, lines 259–276).
+The model was trained using the training data, with early stopping to reduce unnecessary training and help prevent overfitting. A model checkpoint saved the best weights according to validation loss.
+Reference: Model training and callbacks in mental_health_cnn.py (train_mode function, lines 293–327).
+After training, the model was evaluated using the test data to measure its performance on data that was not used to fit the model.
+Figure 9: Testing and prediction using the trained CNN model
+Reference: Model evaluation in mental_health_cnn.py (train_mode function, lines 336–387).
+D. Solution Techniques
+•	The team used supervised learning to build a 1D CNN that learns patterns from all 21 input features to predict mental health status.
+• Missing values were handled through imputation, and standardisation was applied to make feature scales more consistent.
+•	The scikit-learn StandardScaler was used to transform features towards zero mean and unit variance based on the training data.
+Reference: StandardScaler in mental_health_cnn.py (train_mode function, lines 259–271).
+•	A fixed random state (RANDOM_STATE = 42) was used for dataset splitting and relevant initialisation steps to improve reproducibility.
+Reference: Constants in mental_health_cnn.py (lines 49–67).
+•	Stratified splitting was used to preserve the proportions of the four classes across the training, validation and test datasets.
+Reference: Stratified splitting in mental_health_cnn.py (train_mode function, lines 232–248).
+•	The preprocessing pipeline was fitted using the training data and then applied to the other dataset splits to reduce the risk of data leakage.
+Reference: Preprocessing in mental_health_cnn.py (train_mode function, lines 259–276).
+•	Dropout layers were used to help reduce overfitting and improve the model's ability to generalise to unseen data.
+Reference: Dropout layers in build_cnn_model() (lines 152, 163, 169 and 171).
+•	Several evaluation metrics were included, such as accuracy, macro F1-score, weighted F1-score and balanced accuracy. Precision, recall and F1-score were also calculated for individual classes.
+Reference: Metrics calculation in mental_health_cnn.py (train_mode function, lines 349–359).
+•	A classification report was generated to show how the model performed for each mental health category.
+Reference: Classification report in mental_health_cnn.py (train_mode function, lines 362–377).
+•	A confusion matrix was generated to identify which categories the model predicted correctly and which categories it confused with one another.
+Reference: Confusion matrix in mental_health_cnn.py (train_mode function, lines 379–387).
+•	Experiment details were saved, including the features used, preprocessing steps, results and a warning that the model was experimental.
+Reference: Metadata saving in mental_health_cnn.py (train_mode function, lines 389–483).
+•	Graphs of training results were generated using Matplotlib to show changes in accuracy and loss across training epochs.
+Reference: Plot generation in mental_health_cnn.py (train_mode function, lines 486–514).
+•	CSV row numbers were tracked to show which original data rows were allocated to training, validation and testing.
+Reference: Row index tracking in mental_health_cnn.py (train_mode function, lines 218 and 241–257).
+• The training script saved row numbers in separate files for each dataset split, making it easier to trace the data used in the experiment.
+Reference: Split index file saving in mental_health_cnn.py (train_mode function, lines 417–427).
+•	The script generated a test prediction file containing the original row numbers and information showing whether each prediction matched the actual label.
+Reference: Test predictions in mental_health_cnn.py (train_mode function, lines 451–462).
+E. Machine Learning
+MENTAL HEALTH PREDICTION uses supervised machine learning through a 1D Convolutional Neural Network (CNN) implemented with TensorFlow/Keras. The model learns from labelled examples rather than using a pretrained model.
+CNNs use layers to learn patterns from input data. In this project, convolutional layers use ReLU activation to learn non-linear relationships, while dropout layers help reduce overfitting.
+Reference: build_cnn_model() function in mental_health_cnn.py (lines 137–185).
+Dropout was included to improve generalisation by reducing reliance on particular neurons. It does not, by itself, solve class imbalance, so performance must also be assessed for the Severe_Stress category.
+Reference: Dropout layers in build_cnn_model() (lines 152, 163, 169 and 171).
+The convolutional layers learn feature representations, while dense layers use those representations to predict a mental health category. Batch Normalisation layers are used to support training stability.
+Reference: Convolutional and BatchNormalization layers in build_cnn_model() (lines 144–171).
+The system tracks original CSV row numbers throughout the splitting process. This makes it easier to identify which data was used for training, validation and testing.
+Reference: Row index tracking in mental_health_cnn.py (train_mode function, lines 218 and 241–257).
+Training and evaluation results are recorded in a report that describes the model's performance across the four mental health categories.
+Reference: experiment_report.md in mental_health_21_feature_cnn_experiment/.
+F. Features
+MENTAL HEALTH PREDICTION includes several features designed to support the analysis of structured mental health data.
+•	Mental Health Prediction: Uses a trained 1D CNN to predict a mental health status category from the input features.
+Reference: mental_health_cnn.py (lines 589–630).
+•	Command-Line Interface: Allows users to run training and prediction operations through command-line options.
+Reference: Argument parsing in mental_health_cnn.py (lines 686–750).
+•	Programmatic API: Provides a way for other Python programs to use the prediction functionality.
+Reference: Prediction functions in mental_health_cnn.py.
+•	Confidence Scores and Probabilities: Displays the predicted class, its confidence score and probabilities for all four categories.
+Reference: Output structure in predict_status() (lines 589–630).
+•	Evaluation Reports: Produces classification reports, confusion matrices and training performance graphs.
+Reference: Evaluation functions in mental_health_cnn.py (train_mode function, lines 336–435).
+•	Experiment Metadata: Saves information about the model, input features, preprocessing steps and evaluation results.
+Reference: Metadata saving in mental_health_cnn.py (train_mode function, lines 389–483).
+•	Experiment Report: Generates a Markdown report describing the experiment, results, findings, limitations and possible future improvements.
+Reference: Report generation in mental_health_cnn.py (train_mode function, lines 438–483).
+•	Training Graphs: Generates accuracy and loss graphs to help users understand how the model performed during training.
+Reference: Plot generation in mental_health_cnn.py (train_mode function, lines 486–514).
+•	Dataset Split Tracking: Saves original row numbers in separate files for training, validation and testing.
+Reference: Split index file saving in mental_health_cnn.py (train_mode function, lines 417–427).
+•	Test Prediction Tracking: Generates a file containing predictions, original CSV row numbers and whether the predictions were correct.
+Reference: Test predictions in mental_health_cnn.py (train_mode function, lines 451–462).
+•	CSV Row Selection: The --row argument in prediction mode refers to a row number from the original CSV file, not a row number within the test dataset.
+Reference: Prediction mode in mental_health_cnn.py (predict_mode function).
+Figure 10: The system generates classification reports, confusion matrices and training graphs
+Reference: Evaluation functions in mental_health_cnn.py (train_mode function).
+G. EXPERIMENTAL ANALYSIS
+After training and testing the 1D CNN model, the project identified several important considerations.
+•	Model Performance: The CNN was designed to learn from all 21 input features and classify data into four mental health categories. Actual performance should be reported using the recorded evaluation metrics.
+•	Feature Integration: The model combines Depression_Score, Anxiety_Score and Stress_Score with 18 behavioural and physiological features.
+•	Class Imbalance: Severe_Stress represents only 3.2% of the dataset. This small number of samples may make it harder for the model to recognise this category accurately.
+•	Preprocessing Impact: Imputation and standardisation help prepare the data for training and ensure that missing values and different feature scales are handled consistently.
+•	Deep Learning Benefits: The 1D CNN can learn feature patterns automatically, reducing the need for manual feature engineering.
+Reference: experiment_report.md in mental_health_21_feature_cnn_experiment/.
+These findings demonstrate how a 1D CNN can be applied to mental health status classification using structured features. The mental_health_cnn.py script combines training and prediction functionality and automatically generates evaluation files and reports.
+The model's effectiveness must be determined from the actual test results, particularly its precision, recall and F1-score for Severe_Stress. Overall accuracy alone may not provide a complete picture because the dataset is imbalanced.
+H. ETHICAL CONSIDERATIONS
+The use of AI to predict mental health status raises several ethical concerns that must be considered.
+•	Clinical Validation: The model must not be used to diagnose mental health conditions without appropriate clinical evaluation and validation by qualified healthcare professionals.
+•	Fairness: The model should be evaluated to identify potential bias and differences in performance across relevant groups.
+•	Transparency: Users must understand the system's purpose, limitations and experimental status.
+•	Privacy: Behavioural and physiological information can be sensitive. Data must be handled securely, with appropriate access controls and consent where required.
+•	Explainability: Users should be provided with understandable information about the model's predictions and, where possible, the features influencing its outputs.
+•	Responsible Use: Confidence scores must not be treated as proof that a prediction is medically correct. The system should support research and decision-making rather than replace professional judgement.
+•	Regulatory Compliance: Any real-world use must comply with applicable healthcare requirements and data protection laws, including relevant South African legislation.
+
+
+
